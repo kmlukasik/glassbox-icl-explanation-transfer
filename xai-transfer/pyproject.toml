@@ -1,0 +1,46 @@
+[project]
+name = "xai-transfer"
+version = "0.1.0"
+description = "Add your description here"
+readme = "README.md"
+authors = [
+    { name = "PetrashU", email = "petrashevichulyana@gmail.com" }
+]
+requires-python = ">=3.11"
+dependencies = [
+    "interpret>=0.7.8",
+    "matplotlib>=3.11.2",
+    "numpy>=2.4.6",
+    "openml>=0.15.1",
+    "pandas>=3.1.0",
+    "pyarrow>=26.0.1",
+    "pyyaml>=6.0.3",
+    "scikit-learn>=1.9.1",
+    "scipy>=1.17.1",
+    "seaborn>=0.13.2",
+    "tabpfn>=9.2.0",
+    "xgboost>=3.2.0",
+]
+
+[project.scripts]
+xai-transfer = "xai_transfer:main"
+
+[build-system]
+requires = ["uv_build>=0.13.7,<0.14.0"]
+build-backend = "uv_build"
+
+[dependency-groups]
+dev = [
+    "ipykernel>=7.4.0",
+    "jupyter>=1.1.1",
+    "pytest>=9.2.0",
+    "ruff>=0.17.3",
+]
+
+[tool.uv.sources]
+torch = { index = "pytorch-cu128" }
+
+[[tool.uv.index]]
+name = "pytorch-cu128"
+url = "https://download.pytorch.org/whl/cu128"
+explicit = true
