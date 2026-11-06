@@ -52,9 +52,9 @@ Program będzie pakietem Pythona z interfejsem wiersza poleceń, który pozwala 
 
 Wszystkie parametry eksperymentów (zbiór danych, ziarno, parametry EBM, strategia i wielkość perturbacji, wybór metryk) są zadawane w plikach konfiguracyjnych YAML. Każdy eksperyment będzie można powtórzyć lub zmodyfikować bez zmiany kodu, a rozszerzenie programu o nowy zbiór lub strategię perturbacji będzie wymagało jedynie dodania modułu o ustalonym interfejsie.
 ## Planowany stack technologiczny
-Projekt powstanie w Pythonie 3.11. Środowiskiem wirtualnym i zależnościami (z plikiem blokującym wersje) zarządza `uv`, a struktura repozytorium opiera się na szablonie `cookiecutter``-data-science`.
+Projekt powstanie w Pythonie 3.11. Środowiskiem wirtualnym i zależnościami (z plikiem blokującym wersje) zarządza `uv`, a struktura repozytorium opiera się na szablonie `cookiecutter-data-science`.
 
-**Modele.** Model glassbox to Explainable Boosting Machine z biblioteki `interpret`. Jako model ICL użyjemy TabPFN 3.5 (pakiet `tabpfn`, PyTorch, wstępnie wytrenowane wagi). Modelem odniesienia będzie XGBoost z pakietu `xgboo``st`.
+**Modele.** Model glassbox to Explainable Boosting Machine z biblioteki `interpret`. Jako model ICL użyjemy TabPFN 3.5 (pakiet `tabpfn`, PyTorch, wstępnie wytrenowane wagi). Modelem odniesienia będzie XGBoost z pakietu `xgboost`.
 
 **Dane i analiza.** Zbiory pobieramy z OpenML (`openml` lub `scikit-learn`), przetwarzamy je w `pandas` i `numpy`, a wyniki zapisujemy w formacie Parquet (`pyarrow`). Statystykę (testy, bootstrap) wykonujemy w `scipy` i `statsmodels`. Wykresy powstają w `matplotlib` i `seaborn`.
 
