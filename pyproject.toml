@@ -1,10 +1,12 @@
 [project]
 name = "xai-transfer"
 version = "0.1.0"
-description = "Add your description here"
+description = "Comparing glassbox and ICL models via explanation-guided input perturbations"
 readme = "README.md"
 authors = [
-    { name = "PetrashU", email = "petrashevichulyana@gmail.com" }
+    { name = "PetrashU", email = "petrashevichulyana@gmail.com" },
+    { name = "Karol Łukasik", email = "karollukasik423@gmail.com" },
+    { name = "Kacper Chabowski"},
 ]
 requires-python = ">=3.11"
 dependencies = [
@@ -38,8 +40,28 @@ dev = [
     "ruff>=0.17.3",
 ]
 
+[project.optional-dependencies]
+cpu = ["torch>=2.7"]
+cu128 = ["torch>=2.7"]
+
+[tool.uv]
+conflicts = [
+    [
+        { extra = "cpu" },
+        { extra = "cu128" },
+    ],
+]
+
 [tool.uv.sources]
-torch = { index = "pytorch-cu128" }
+torch = [
+    { index = "pytorch-cpu", extra = "cpu" },
+    { index = "pytorch-cu128", extra = "cu128" },
+]
+
+[[tool.uv.index]]
+name = "pytorch-cpu"
+url = "https://download.pytorch.org/whl/cpu"
+explicit = true
 
 [[tool.uv.index]]
 name = "pytorch-cu128"
