@@ -1,0 +1,23 @@
+seed: 0
+dataset: credit-g
+positive_class: good
+test_size: 0.2
+
+tabpfn:
+  device: auto
+
+ebm:
+  max_rounds: 5000
+  interactions: 0
+
+perturbation:
+  shift_std: 1.0
+  clip_to_train_range: true
+
+bootstrap:
+  n_resamples: 1000
+
+wandb:
+  enabled: true
+  project: glassbox-icl-transfer
+  mode: online        # online | offline | disabled

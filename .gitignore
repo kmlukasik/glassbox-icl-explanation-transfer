@@ -1,0 +1,49 @@
+# Byte-compiled / cache files
+__pycache__/
+*.py[cod]
+*$py.class
+.pytest_cache/
+.ruff_cache/
+.coverage
+htmlcov/
+
+# Environments
+.venv/
+venv/
+env/
+
+# Packaging
+build/
+dist/
+*.egg-info/
+
+# Jupyter Notebooks
+.ipynb_checkpoints/
+
+# Data
+data/*
+!data/raw/
+!data/raw/.gitkeep
+!data/interim/
+!data/interim/.gitkeep
+!data/processed/
+!data/processed/.gitkeep
+!data/external/
+!data/external/.gitkeep
+
+# Models
+models/*
+!models/.gitkeep
+
+# Reports
+reports/figures/*
+!reports/figures/.gitkeep
+
+# IDE / OS
+.DS_Store
+Thumbs.db
+.idea/
+.vscode/
+
+# Experiment tracking
+wandb/

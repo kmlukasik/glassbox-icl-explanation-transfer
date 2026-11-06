@@ -64,7 +64,7 @@ Projekt powstanie w Pythonie 3.11. Środowiskiem wirtualnym i zależnościami (z
 
 **Uruchamianie i dokumentacja.** Budowanie, testowanie i uruchamianie eksperymentów będzie odbywało się w `just`, a interfejs wiersza poleceń będzie zbudowany w `typer`. Eksploracja danych będzie odbywała się w notatnikach Jupyter, a gotowy kod eksportowany do biblioteki w `src/`. Dokumentację tworzymy w `mkdocs`, a bieżące postępy w notatkach w `docs/standup/`.
 ## Zasoby obliczeniowe
-Trenowanie EBM i modelu odniesienia odbywa się na CPU. Dla inferencji modelu TabPFN zalecane jest zastosowanie GPU, wykorzystamy do tego RTX5070.
+Trenowanie EBM i modelu odniesienia odbywa się na CPU. Dla inferencji modelu TabPFN zalecane jest zastosowanie GPU, wykorzystamy do tego RTX5070 lub RTX4070 Ti Super.
 
 ## Harmonogram
 
