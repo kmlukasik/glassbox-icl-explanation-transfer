@@ -6,7 +6,7 @@ readme = "README.md"
 authors = [
     { name = "PetrashU", email = "petrashevichulyana@gmail.com" },
     { name = "Karol Łukasik", email = "karollukasik423@gmail.com" },
-    { name = "Kacper Chabowski"},
+    { name = "Kacper Chabowski", email = "kacper.chabowski.szkola@gmail.com"},
 ]
 requires-python = ">=3.11"
 dependencies = [

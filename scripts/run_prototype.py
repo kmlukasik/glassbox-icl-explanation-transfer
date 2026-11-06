@@ -8,10 +8,10 @@ from sklearn.metrics import roc_auc_score
 
 from xai_transfer.data import load_openml
 from xai_transfer.explain import global_importance, pick_features
+from xai_transfer.io import save_results
 from xai_transfer.metrics import summarize
 from xai_transfer.models import fit_tabpfn, proba, train_ebm
 from xai_transfer.perturb import shift_feature
-from xai_transfer.io import save_results
 from xai_transfer.tracking import log_run
 
 
@@ -22,8 +22,7 @@ def main(cfg_path: str):
     s = load_openml(cfg["dataset"], cfg["positive_class"],
                     cfg["test_size"], seed=seed)
     ebm = train_ebm(s.X_train, s.y_train, seed=seed, **cfg["ebm"])
-    pfn = fit_tabpfn(s.X_train, s.y_train, seed=seed,
-                    **cfg["tabpfn"])
+    pfn = fit_tabpfn(s.X_train, s.y_train, seed=seed, **cfg["tabpfn"])
 
     ebm_auc = roc_auc_score(s.y_test, proba(ebm, s.X_test))
     pfn_auc = roc_auc_score(s.y_test, proba(pfn, s.X_test))
@@ -38,17 +37,24 @@ def main(cfg_path: str):
     for role, feat in [("top", top), ("control", irrelevant)]:
         Xp = shift_feature(s.X_test, s.X_train, feat,
                            p["shift_std"], p["clip_to_train_range"])
+        frac_changed = float((Xp[feat] != s.X_test[feat]).mean())
         d_ebm = proba(ebm, Xp) - base_ebm
         d_pfn = proba(pfn, Xp) - base_pfn
-        res = summarize(
-            d_ebm, d_pfn, cfg["bootstrap"]["n_resamples"], seed=seed)
-        res.update(role=role, feature=feat, mean_abs_d_ebm=float(
-            np.abs(d_ebm).mean()), mean_abs_d_pfn=float(np.abs(d_pfn).mean()))
+        res = summarize(d_ebm, d_pfn, cfg["bootstrap"]["n_resamples"], seed=seed)
+        res.update(
+            role=role,
+            feature=feat,
+            frac_changed=frac_changed,
+            mean_abs_d_ebm=float(np.abs(d_ebm).mean()),
+            mean_abs_d_pfn=float(np.abs(d_pfn).mean()),
+        )
         rows.append(res)
+
     out = pd.DataFrame(rows)
     print(out.T)
     save_results(out, cfg, cfg_path, name="prototype")
-    log_run(cfg, {"ebm_auc": ebm_auc, "tabpfn_auc": pfn_auc}, out, global_importance(ebm))
+    log_run(cfg, {"ebm_auc": ebm_auc, "tabpfn_auc": pfn_auc}, out,
+            global_importance(ebm))
 
 
 if __name__ == "__main__":
