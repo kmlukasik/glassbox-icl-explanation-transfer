@@ -7,11 +7,12 @@ import yaml
 from sklearn.metrics import roc_auc_score
 
 from xai_transfer.data import load_openml
-from xai_transfer.explain import pick_features
+from xai_transfer.explain import global_importance, pick_features
 from xai_transfer.metrics import summarize
 from xai_transfer.models import fit_tabpfn, proba, train_ebm
 from xai_transfer.perturb import shift_feature
 from xai_transfer.io import save_results
+from xai_transfer.tracking import log_run
 
 
 def main(cfg_path: str):
@@ -22,10 +23,12 @@ def main(cfg_path: str):
                     cfg["test_size"], seed=seed)
     ebm = train_ebm(s.X_train, s.y_train, seed=seed, **cfg["ebm"])
     pfn = fit_tabpfn(s.X_train, s.y_train, seed=seed,
-                     **cfg["tabpfn"]["device"])
+                    **cfg["tabpfn"])
 
-    print("EBM AUC:", roc_auc_score(s.y_test, proba(ebm, s.X_test)))
-    print("TabPFN AUC:", roc_auc_score(s.y_test, proba(pfn, s.X_test)))
+    ebm_auc = roc_auc_score(s.y_test, proba(ebm, s.X_test))
+    pfn_auc = roc_auc_score(s.y_test, proba(pfn, s.X_test))
+    print("EBM AUC:", ebm_auc)
+    print("TabPFN AUC:", pfn_auc)
 
     top, irrelevant = pick_features(ebm, s.X_train)
     p = cfg["perturbation"]
@@ -45,6 +48,7 @@ def main(cfg_path: str):
     out = pd.DataFrame(rows)
     print(out.T)
     save_results(out, cfg, cfg_path, name="prototype")
+    log_run(cfg, {"ebm_auc": ebm_auc, "tabpfn_auc": pfn_auc}, out, global_importance(ebm))
 
 
 if __name__ == "__main__":

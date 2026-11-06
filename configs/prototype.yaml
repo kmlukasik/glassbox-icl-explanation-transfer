@@ -16,3 +16,8 @@ perturbation:
 
 bootstrap:
   n_resamples: 1000
+
+wandb:
+  enabled: true
+  project: glassbox-icl-transfer
+  mode: online        # online | offline | disabled

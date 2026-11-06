@@ -9,7 +9,7 @@ def save_results(
     cfg: dict,
     cfg_path: str | Path,
     name: str,
-    out_dir: str | Path = "results",
+    out_dir: str | Path = "models",
 ) -> Path:
     out_dir = Path(out_dir)
     out_dir.mkdir(parents=True, exist_ok=True)
