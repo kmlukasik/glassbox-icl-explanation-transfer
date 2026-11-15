@@ -24,7 +24,23 @@ class Split:
     )
     return Split(X_tr, X_te, y_tr, y_te)'''
 
-def download_openml(dataset_id: int, target: str) -> tuple[pd.DataFrame, pd.Series]:
+def load_openml(dataset_name: str, dataset_id: int, target: str, output_dir: str | Path = "data/raw") -> tuple[pd.DataFrame, pd.Series]:
+
+    raw_dir = Path(output_dir) / str(dataset_id)
+    raw_file = raw_dir / "data.parquet"
+
+    if raw_file.exists():
+        print(f"Znaleziono dane niezmienione w {raw_file}. Wczytywanie...")
+        raw = pd.read_parquet(raw_file)
+        if target not in raw.columns:
+            raise ValueError(f"Brak kolumny docelowej '{target}' w danych niezmienionych.")
+        y = raw.pop(target)
+        X = raw
+
+        return X, y
+
+    print(f"Pobieranie zbioru danych {dataset_id} z OpenML...")
+
     ds = openml.datasets.get_dataset(dataset_id)
     actual_target = ds.default_target_attribute
     if actual_target != target:
@@ -41,6 +57,8 @@ def download_openml(dataset_id: int, target: str) -> tuple[pd.DataFrame, pd.Seri
         raise ValueError(f"Zbiór danych {dataset_id} zawiera zduplikowane nazwy kolumn: {X.columns[X.columns.duplicated()].tolist()}")
 
     y.name = target
+
+    save_raw(X, y, dataset_name, output_dir)
 
     return X, y
 

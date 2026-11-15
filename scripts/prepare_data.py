@@ -16,21 +16,11 @@ def prepare_dataset(
 
     print(f"\Pobieranie {name}...")
 
-    raw_file = Path("data/raw") / name / "data.parquet"
-
-    if raw_file.exists():
-        print(f"Znaleziono dane niezmienione w {raw_file}. Wczytywanie...")
-        raw = pd.read_parquet(raw_file)
-        if config["target"] not in raw.columns:
-            raise ValueError(f"Brak kolumny docelowej '{config['target']}' w danych niezmienionych.")
-        y_raw = raw.pop(config["target"])
-        X_raw = raw
-    else:
-        X_raw, y_raw = download_openml(
-            dataset_id=config["openml_id"],
-            target=config["target"],
-        )
-        save_raw(X_raw, y_raw, name)
+    X_raw, y_raw = load_openml(
+        dataset_name=name,
+        dataset_id=config["openml_id"],
+        target=config["target"],
+    )
 
     print(f"Wymiary danych niezmienionych: {X_raw.shape}")
 
