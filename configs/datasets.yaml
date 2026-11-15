@@ -1,0 +1,22 @@
+
+datasets:
+  credit-g:
+    openml_id: 31
+    target: class
+    positive_class: good
+    negative_class: bad
+
+  adult:
+    openml_id: 1590
+    target: class
+    positive_class: ">50K"
+    negative_class: "<=50K"
+
+  magic:
+    openml_id: 1120
+    target: "class:"
+    positive_class: g
+    negative_class: h
+
+seed: 42
+test_size: 0.2

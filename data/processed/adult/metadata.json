@@ -1,0 +1,32 @@
+{
+    "dataset": "adult",
+    "openml_id": 1590,
+    "target": "class",
+    "positive_class": ">50K",
+    "negative_class": "<=50K",
+    "seed": 42,
+    "test_size": 0.2,
+    "n_samples": 48842,
+    "n_features": 14,
+    "train_samples": 39073,
+    "test_samples": 9769,
+    "train_positive": 9349,
+    "test_positive": 2338,
+    "missing_values": 6465,
+    "feature_types": {
+        "age": "uint8",
+        "workclass": "category",
+        "fnlwgt": "float64",
+        "education": "category",
+        "education-num": "uint8",
+        "marital-status": "category",
+        "occupation": "category",
+        "relationship": "category",
+        "race": "category",
+        "sex": "category",
+        "capital-gain": "float64",
+        "capital-loss": "float64",
+        "hours-per-week": "uint8",
+        "native-country": "category"
+    }
+}

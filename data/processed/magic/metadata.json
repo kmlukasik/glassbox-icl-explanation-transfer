@@ -1,0 +1,28 @@
+{
+    "dataset": "magic",
+    "openml_id": 1120,
+    "target": "class:",
+    "positive_class": "g",
+    "negative_class": "h",
+    "seed": 42,
+    "test_size": 0.2,
+    "n_samples": 19020,
+    "n_features": 10,
+    "train_samples": 15216,
+    "test_samples": 3804,
+    "train_positive": 9866,
+    "test_positive": 2466,
+    "missing_values": 0,
+    "feature_types": {
+        "fLength:": "float64",
+        "fWidth:": "float64",
+        "fSize:": "float64",
+        "fConc:": "float64",
+        "fConc1:": "float64",
+        "fAsym:": "float64",
+        "fM3Long:": "float64",
+        "fM3Trans:": "float64",
+        "fAlpha:": "float64",
+        "fDist:": "float64"
+    }
+}
