@@ -15,15 +15,6 @@ class Split:
     y_train: pd.Series
     y_test: pd.Series
 
-'''def load_openml(name: str, positive_class: str, test_size: float, seed: int) -> Split:
-    ds = openml.datasets.get_dataset(name)
-    X, y, _, _ = ds.get_data(target=ds.default_target_attribute)
-    y = (y.astype(str) == positive_class).astype(int)
-    X_tr, X_te, y_tr, y_te = train_test_split(
-        X, y, test_size=test_size, stratify=y, random_state=seed
-    )
-    return Split(X_tr, X_te, y_tr, y_te)'''
-
 def load_openml(dataset_name: str, dataset_id: int, target: str, output_dir: str | Path = "data/raw") -> tuple[pd.DataFrame, pd.Series]:
 
     raw_dir = Path(output_dir) / str(dataset_id)
@@ -79,6 +70,10 @@ def clean_features(X: pd.DataFrame) -> pd.DataFrame:
                 .str.strip()
                 .replace(r"^\s*\?\s*$", pd.NA, regex=True)
             )
+
+            if series.isna().any():
+                print(f"Kolumna '{col}' zawiera {series.isna().sum()} brakujących wartości. Zastępowanie brakujących wartości kategorią 'not-specified'.")
+                series = series.fillna("not-specified")
 
             X[col] = series.astype("category")
 

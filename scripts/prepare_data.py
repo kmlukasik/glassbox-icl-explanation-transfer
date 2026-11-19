@@ -59,7 +59,6 @@ def prepare_dataset(
         "test_samples": len(split.X_test),
         "train_positive": int(split.y_train.sum()),
         "test_positive": int(split.y_test.sum()),
-        "missing_values": int(X.isna().sum().sum()),
         "feature_types": {
             str(col): str(dtype)
             for col, dtype in X.dtypes.items()
@@ -72,7 +71,6 @@ def prepare_dataset(
     print(f"  Liczba cech: {X.shape[1]}")
     print(f"  Train: {len(split.X_train)}")
     print(f"  Test: {len(split.X_test)}")
-    print(f"  Brakujące wartości: {metadata['missing_values']}")
     print(f"  Zapisano do data/processed/{name}")
 
     return split

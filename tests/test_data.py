@@ -18,7 +18,7 @@ def test_clean_features():
 
     cleaned = clean_features(X)
 
-    assert cleaned["occupation"].isna().sum() == 1
+    assert cleaned["occupation"].isna().sum() == 0
     assert isinstance(
         cleaned["occupation"].dtype,
         pd.CategoricalDtype,
