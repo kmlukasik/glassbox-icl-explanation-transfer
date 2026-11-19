@@ -12,7 +12,6 @@
     "test_samples": 200,
     "train_positive": 560,
     "test_positive": 140,
-    "missing_values": 0,
     "feature_types": {
         "checking_status": "category",
         "duration": "uint8",

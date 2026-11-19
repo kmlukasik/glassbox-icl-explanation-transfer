@@ -12,7 +12,6 @@
     "test_samples": 9769,
     "train_positive": 9349,
     "test_positive": 2338,
-    "missing_values": 6465,
     "feature_types": {
         "age": "uint8",
         "workclass": "category",

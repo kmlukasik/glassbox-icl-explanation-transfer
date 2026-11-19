@@ -12,7 +12,6 @@
     "test_samples": 3804,
     "train_positive": 9866,
     "test_positive": 2466,
-    "missing_values": 0,
     "feature_types": {
         "fLength:": "float64",
         "fWidth:": "float64",
